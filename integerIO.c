@@ -23,7 +23,7 @@ int main(int argc, const char* argv[]) {
   printf("%s", "This program was created by Lewis Lam\n");
   printf("%s\n", "and completed on Feb 2, 2019");
   remain = _integerIO();
-  printf("%s%1.5f\n%s\n", "The driver function has received this number: ", remain,
+  printf("%s%1.2f\n%s\n", "The driver function has received this number: ", remain,
   "The driver will now return 0 to the operating system. Have a nice day.");
   return 0;
 }

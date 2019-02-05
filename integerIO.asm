@@ -33,6 +33,7 @@ quotient db "The quotient of the first divided by the second is %ld", 10, 0
 
 remainder db "The assembly function will now return the remainder to the driver", 10, 0
 
+testInput db "Number is %ld", 10, 0
 
 segment .bss                                          ;Place un-initialized data here.
 
@@ -68,12 +69,16 @@ mov rsi, prompt1                                      ;"Please enter the first i
 call printf                                           ;call a library function to do the hard work
 
 ;=========== Obtain an integer number from the standard input device and store a copy in r8 ===============================================================================
-
 mov qword rax, 0                                      ;no data from SSE will be printed
 mov rdi, eight_byte_format                            ;"%ld"
 mov rsi, rsp                                          ;Give scanf a point to the reserved storage
 call scanf                                            ;call a library function to do the input work
-mov r8, [rsp]                                         ;copy the inputted number to r8
+mov r15, [rsp]                                        ;copy the inputted number to r8
+
+mov qword rax, 0
+mov rdi, testInput
+mov rsi, r15
+call printf
 
 ;=========== Prompt for second integer number =============================================================================================================================
 
@@ -88,29 +93,44 @@ mov qword rax, 0                                      ;no data from SSE will be 
 mov rdi, eight_byte_format                            ;"%ld"
 mov rsi, rsp                                          ;Give scanf a point to the reserved storage
 call scanf                                            ;call a library function to do the input work
-mov r9, [rsp]                                         ;copy the inputted number to r9
+mov r14, [rsp]                                        ;copy the inputted number to r9
+
+mov qword rax, 0
+mov rdi, testInput
+mov rsi, r14
+call printf
 
 ;=========== Multiply the two inputted numbers and prints the product =====================================================================================================
 
-mov rax, r8                                           ;copy first input number to rax
-imul r9                                               ;multiply the first input number by the second input number
-mov r10, rax                                          ;copy the product to r10
+mov rax, r15                                          ;copy first input number to rax
+imul r14                                              ;multiply the first input number by the second input number
+mov r13, rax                                          ;copy the product to r10
+
+mov qword rax, 0
+mov rdi, testInput
+mov rsi, r15
+call printf
+
+mov qword rax, 0
+mov rdi, testInput
+mov rsi, r14
+call printf
+
 mov qword rax, 0                                      ;no data from SSE will be printed
 mov rdi, product                                      ;"The quotient of the first divided by the second is %ld"
-mov rsi, r10                                          ;moves the product to be inserted into %ld of the string above
+mov rsi, r13                                          ;moves the product to be inserted into %ld of the string above
 call printf                                           ;call a library function to do the hard work
 
 ;=========== Divide the two inputted numbers and prints the quotient ======================================================================================================
 
-; divide
-mov rax, r8                                           ;copy first input number to rax
+mov rax, r15                                          ;copy first input number to rax
 cqo                                                   ;convert quad word to octal word and extend rdi:rax
-idiv r9                                               ;divide first input number by second input number;
-mov r14, rax                                          ;copy the quotient to r14
-mov r13, rdx                                          ;copy the remainder to r13
+idiv r14                                              ;divide first input number by second input number;
+mov r15, rax                                          ;copy the quotient to r15
+mov r14, rdx                                          ;copy the remainder to r14
 mov qword rax, 0                                      ;no data from SSE will be printed
 mov rdi, quotient                                     ;"The quotient of the first divided by the second is %ld"
-mov rsi, r14                                          ;moves the quotient to be inserted into %ld of the string above
+mov rsi, r15                                          ;moves the quotient to be inserted into %ld of the string above
 call printf                                           ;call a library function to do the hard work
 
 ;=========== Conclusion ===================================================================================================================================================
@@ -122,9 +142,9 @@ call printf                                           ;call a library function t
 
 ;=========== Set the value to be returned to the caller ===================================================================================================================
 
-push r13                                              ;r13 continues to hold the the remainder
+push r14                                              ;r14 continues to hold the the remainder
 movsd xmm0, [rsp]                                     ;The value of the remainder is copied to xmm0[63-0]
-pop r13                                               ;Reverse the push from two lines earlier.
+pop r14                                               ;Reverse the push from two lines earlier.
 
 ;=========== Restore GPR values and return to the caller ==================================================================================================================
 
