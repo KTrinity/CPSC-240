@@ -75,11 +75,6 @@ mov rsi, rsp                                          ;Give scanf a point to the
 call scanf                                            ;call a library function to do the input work
 mov r15, [rsp]                                        ;copy the inputted number to r8
 
-mov qword rax, 0
-mov rdi, testInput
-mov rsi, r15
-call printf
-
 ;=========== Prompt for second integer number =============================================================================================================================
 
 mov qword rax, 0                                      ;no data from SSE will be printed
@@ -95,27 +90,11 @@ mov rsi, rsp                                          ;Give scanf a point to the
 call scanf                                            ;call a library function to do the input work
 mov r14, [rsp]                                        ;copy the inputted number to r9
 
-mov qword rax, 0
-mov rdi, testInput
-mov rsi, r14
-call printf
-
 ;=========== Multiply the two inputted numbers and prints the product =====================================================================================================
 
 mov rax, r15                                          ;copy first input number to rax
 imul r14                                              ;multiply the first input number by the second input number
 mov r13, rax                                          ;copy the product to r10
-
-mov qword rax, 0
-mov rdi, testInput
-mov rsi, r15
-call printf
-
-mov qword rax, 0
-mov rdi, testInput
-mov rsi, r14
-call printf
-
 mov qword rax, 0                                      ;no data from SSE will be printed
 mov rdi, product                                      ;"The quotient of the first divided by the second is %ld"
 mov rsi, r13                                          ;moves the product to be inserted into %ld of the string above
