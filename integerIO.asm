@@ -29,7 +29,7 @@ prompt2 db "Please enter the second integer: ", 0
 
 product db "The product of these two integers is: %ld", 10, 0
 
-quotient db "The quotient of the first divided by the second is %ld", 10, 0
+quotient db "The quotient of the second divided by the first is %ld", 10, 0
 
 remainder db "The assembly function will now return the remainder to the driver", 10, 0
 
@@ -142,9 +142,7 @@ call printf                                           ;call a library function t
 
 ;=========== Set the value to be returned to the caller ===================================================================================================================
 
-push r14                                              ;r14 continues to hold the the remainder
-movsd xmm0, [rsp]                                     ;The value of the remainder is copied to xmm0[63-0]
-pop r14                                               ;Reverse the push from two lines earlier.
+mov rax, r14                                             ;Reverse the push from two lines earlier.
 
 ;=========== Restore GPR values and return to the caller ==================================================================================================================
 
