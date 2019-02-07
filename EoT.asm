@@ -17,7 +17,7 @@
 extern printf
 extern scanf
 
-global _EoT
+global EoT
 
 segment .data
 
@@ -41,7 +41,7 @@ segment .bss
 
 segment .text
 
-_EoT:
+EoT:
 
 push rbp
 mov rbp, rsp

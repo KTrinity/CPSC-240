@@ -3,23 +3,26 @@ Author name: Lewis Lam
 Program name: End of Transmission
 Names of files in this programming: EoTDriver.cpp, EoT.asm, EoTRun.sh
 Course number: CPSC 240
+Assignment Number: 2
 Scheduled delivery date: February 18, 2019
 Status: In Progress
 Date of last modification: Feb 7, 2019
+
 Information about this module:
 This module purpose: Driver for returning the sum of user inputs
 File name of this module: EoTDriver.cpp
 Compile this module: g++ -c -m64 -std=c++99 -o EoTDriver.o EoT.cpp
 Link this module with other objects: g++ -m64 -std=c++99 -o EoT.out EoTDriver.o EoT.o
+Execute: ./EoT.out
 */
 
 #include <iostream>
 
-extern int EoT();
+extern "C" int EoT();
 
 int main(int argc, const char* argv[]) {
   int result = -99;
-  
+
   std::cout << "Welcome to summing a sequence of integers. \n";
   std::cout << "This program is brought to you by Lewis Lam. \n";
 

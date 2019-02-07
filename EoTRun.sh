@@ -21,9 +21,9 @@ echo "This is program <End of Transmission>"
 nasm -f elf64 -l EoT.lis -o EoT.o EoT.asm
 
 echo "Compile the C++ module EoT.cpp"
-g++ -c -m64 -std=c++99 -o EoTDriver.o EoT.cpp
+g++ -c -m64 -std=c++98 -o EoTDriver.o EoTDriver.cpp
 
 echo "Link the two object files already created"
-g++ -m64 -std=c++99 -o EoT.out EoTDriver.o EoT.o
+g++ -m64 -std=c++98 -o EoT.out EoTDriver.o EoT.o
 
 echo "The bash script file is now closing"
