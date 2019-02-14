@@ -6,12 +6,22 @@ Course Number: CPSC 240
 Assignment Number: 3
 Scheduled delivery date: March 7, 2019
 Status: In Progress
-Date of last modification: Feb 12, 2019
+Date of last modification: Feb 14, 2019
 
 Information about this module:
 This module's purpose: Module for displaying values for Arrays
-File name of thsi module: display.c
-Compile this module: 
+File name of this module: display.c
+Compile this module:
 Link this module with other projects:
 Execute: ./array.out
 */
+
+#include <stdio.h>
+
+void display(long [], long);
+
+void display(long arr[], long size) {
+  for(int i = 0; i < size; i = i + 1) {
+    printf("%ld\n", arr[i]);
+  }
+}

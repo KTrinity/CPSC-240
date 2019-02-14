@@ -5,7 +5,7 @@
 #Assignment Number: 3
 #Scheduled delivery date: March 7, 2019
 #Status: In Progress
-#Date of last modification: Feb 12, 2019
+#Date of last modification: Feb 14, 2019
 
 #Information about this module:
 #This module purpose: Bash module for Arrays
