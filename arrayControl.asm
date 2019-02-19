@@ -11,7 +11,7 @@
 ;This module's purpose: Control module for Arrays
 ;File name of this module: arrayControl.asm
 ;Compile this module: nasm -f elf64 -l array.lis -o arrayControl.o arrayControl.asm
-;Link this module with other objects:
+;Link this module with other objects: g++ -m64 -std=c++98 -o array.out arrayControl.o arrayDriver.o display.o square.o -fno-pie -no-pie
 ;Execute: ./array.out
 
 extern printf
@@ -20,9 +20,11 @@ extern scanf
 
 extern display
 
+extern square
+
 global array
 
-segment .savedata
+segment .data
 
 welcome db "The control module has begun", 10, 0
 
@@ -34,7 +36,7 @@ dataReceived db "Here are the data as received:", 10 ,0
 
 mean db "The total of these %ld numbers is %ld and the mean is %lf", 10, 0
 
-square db "Here are the squares of the data: ", 10, 0
+squareResult db "Here are the squares of the data: ", 10, 0
 
 exit db "The control module is now returning to the caller module. Bye.", 10, 0
 
@@ -54,6 +56,20 @@ array:
 
 push rbp
 mov rbp, rsp
+push rbx
+push rcx
+push rdx
+push rsi
+push rdi
+push r8
+push r9
+push r10
+push r11
+push r12
+push r13
+push r14
+push r15
+pushf
 
 mov qword rax, 0
 mov rdi, stringformat
@@ -102,19 +118,33 @@ mov rdi, stringformat
 mov rsi, dataReceived
 call printf
 
+mov qword rax, 0
 mov rdi, myArray
 mov rsi, r15
 call display
 
+;mov qword rax, 0
+;mov rdi, myArray
+;mov rsi, r15
+;call computeMean
+;mov r12, [rsp]
+
 mov qword rax, 0
-mov rdi, stringformat
-mov rsi, mean
+mov rdi, mean
+mov rsi, r15
+mov rdx, r13
+mov rcx, r12
 call printf
 
 mov qword rax, 0
 mov rdi, stringformat
-mov rsi, square
+mov rsi, squareResult
 call printf
+
+mov qword rax, 0
+mov rdi, myArray
+mov rsi, r15
+call square
 
 mov qword rax, 0
 mov rdi, stringformat
@@ -123,6 +153,21 @@ call printf
 
 mov rax, r15
 
+popf
+pop r15
+pop r14
+pop r13
+pop r12
+pop r11
+pop r10
+pop r9
+pop r8
+pop rdi
+pop rsi
+pop rdx
+pop rcx
+pop rbx
 pop rbp
+
 
 ret

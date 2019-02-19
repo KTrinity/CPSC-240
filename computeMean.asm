@@ -11,5 +11,54 @@
 ;This module's purpose: Module computes mean for Arrays
 ;File name of this module: computeMean.asm
 ;Compile this module: nasm -f elf64 -l computeMean.lis -o computeMean.o computeMean.asm
-;Link this module with other objects:
+;Link this module with other objects: g++ -m64 -std=c++98 -o array.out arrayControl.o arrayDriver.o display.o square.o -fno-pie -no-pie
 ;Execute: ./array.out
+
+global computeMean
+
+segment .data
+
+eight_byte_format db "%lf", 0
+
+segment .bss
+
+segment .text
+
+computeMean:
+
+push rbp
+mov rbp, rsp
+push rbx
+push rcx
+push rdx
+push rsi
+push rdi
+push r8
+push r9
+push r10
+push r11
+push r12
+push r13
+push r14
+push r15
+pushf
+
+
+
+popf
+pop r15
+pop r14
+pop r13
+pop r12
+pop r11
+pop r10
+pop r9
+pop r8
+pop rdi
+pop rsi
+pop rdx
+pop rcx
+pop rbx
+pop rbp
+
+ret
