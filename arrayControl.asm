@@ -20,6 +20,8 @@ extern scanf
 
 extern display
 
+extern computeMean
+
 extern square
 
 global array
@@ -123,11 +125,10 @@ mov rdi, myArray
 mov rsi, r15
 call display
 
-;mov qword rax, 0
-;mov rdi, myArray
-;mov rsi, r15
-;call computeMean
-;mov r12, [rsp]
+push r15
+call computeMean
+mov r12, [rsp]
+pop r15
 
 mov qword rax, 0
 mov rdi, mean
