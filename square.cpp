@@ -6,12 +6,22 @@ Course Number: CPSC 240
 Assignment Number: 3
 Scheduled delivery date: March 7, 2019
 Status: In Progress
-Date of last modification: Feb 12, 2019
+Date of last modification: Feb 28, 2019
 
 Information about this module:
 This module's purpose: Module for squaring values for Arrays
 File name of thsi module: square.cpp
-Compile this module: g++ -c -m64 -std=c++98 -o square.o square.cpp
-Link this module with other projects:
+Compile this module: g++ -c -m64 -std=c++98 -o square.o square.cpp -fno-pie -no-pie
+Link this module with other projects: g++ -m64 -std=c++98 -o array.out arrayControl.o arrayDriver.o display.o square.o -fno-pie -no-pie
 Execute: ./array.out
 */
+
+#include <iostream>
+extern "C" void display(long arr[], long size);
+
+extern "C" void square(long arr[], long size) {
+  for(int i = 0; i < size; ++i) {
+    arr[i] *= arr[i];
+  }
+  display(arr, size);
+}
