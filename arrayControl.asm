@@ -127,8 +127,14 @@ call display
 
 mov qword rax, 0
 mov rdi, r15
+mov rsi, myArray
 call computeMean
 mov r12, [rsp]
+
+mov qword rax, 0
+mov rdi, integerformat
+mov rsi, r12
+call printf
 
 mov qword rax, 0
 mov rdi, mean
@@ -152,7 +158,7 @@ mov rdi, stringformat
 mov rsi, exit
 call printf
 
-mov rax, r15
+mov rax, r12
 
 popf
 pop r15

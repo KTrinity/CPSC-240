@@ -31,6 +31,7 @@ segment .text
 
 computeMean:
 
+push rbp
 mov rbp, rsp
 push rbx
 push rcx
@@ -53,17 +54,26 @@ mov r13, 0
 mov r12, 0
 
 startloop:
-cmp r13, r14
-je done
-
-add r12, [r15 + r13 * 8]
+add r12, [r14 + r13 * 8]
 inc r13
+
+cmp r13, r15
+je done
 jmp startloop
 
 done:
 mov rax, r12
 cqo
-idiv r14
+idiv r15
+
+mov r12, rax
+
+mov qword rax, 0
+mov rdi, integer_format
+mov rsi, r12
+call printf
+
+mov rax, r12
 
 popf
 pop r15
@@ -79,5 +89,6 @@ pop rsi
 pop rdx
 pop rcx
 pop rbx
+pop rbp
 
 ret
