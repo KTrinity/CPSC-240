@@ -4,8 +4,8 @@
 ;Course Number: CPSC 240
 ;Assignment Number: 3
 ;Scheduled delivery date: March 7, 2019
-;Status: In Progress
-;Date of last modification: Feb 14, 2019
+;Status: Complete
+;Date of last modification: March 5, 2019
 
 ;Information about this module:
 ;This module's purpose: Module computes mean for Arrays

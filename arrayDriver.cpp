@@ -5,8 +5,8 @@ Names of files in this program: arrayDriver.cpp, arrayControl.asm, computeMean.a
 Course Number: CPSC 240
 Assignment Number: 3
 Scheduled delivery date: March 7, 2019
-Status: In Progress
-Date of last modification: Feb 19, 2019
+Status: Complete
+Date of last modification: March 5, 2019
 
 Information about this module:
 This module's purpose: Driver module for Arrays
