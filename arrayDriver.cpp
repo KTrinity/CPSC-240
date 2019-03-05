@@ -18,14 +18,14 @@ Execute: ./array.out
 
 #include <iostream>
 
-extern "C" float array();
+extern "C" double array();
 
 int main(int argc, const char* argv[]) {
 
   std::cout << "Welcome to an array of long integers\n";
   std::cout << "This program is brought to you by Lewis Lam\n";
 
-  float result = array();
+  double result = array();
 
   std::cout << "The driver received this unknown number: " << result << std::endl;
   std::cout << "The driver will now return 0 to the operating system\n";

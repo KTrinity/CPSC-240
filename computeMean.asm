@@ -31,44 +31,58 @@ segment .text
 
 computeMean:
 
-;mov rbp, rsp
-;push rbx
-;push rcx
-;push rdx
-;push rsi
-;push rdi
-;push r8
-;push r9
-;push r10
-;push r11
-;push r12
-;push r13
-;push r14
-;push r15
-;pushf
+push rbp
+mov rbp, rsp
+push rbx
+push rcx
+push rdx
+push rsi
+push rdi
+push r8
+push r9
+push r10
+push r11
+push r12
+push r13
+push r14
+push r15
+pushf
 
-mov r14, [rsp]
-mov qword rax, 0
-mov rdi, integer_format
-mov rsi, r14
-call printf
+mov r15, rsi
+mov r14, rdi
+mov r13, 0
+mov r12, 0
 
-mov rax, r14
+startloop:
+add r12, [r14 + r13 * 8]
 
-;popf
-;pop r15
-;pop r14
-;pop r13
-;pop r12
-;pop r11
-;pop r10
-;pop r9
-;pop r8
-;pop rdi
-;pop rsi
-;pop rdx
-;pop rcx
-;pop rbx
-;pop rbp
+cmp r13, r15
+je done
+
+inc r13
+jmp startloop
+
+done:
+
+cvtsi2sd xmm3, r12
+cvtsi2sd xmm4, r15
+divsd xmm3, xmm4
+movsd xmm0, xmm3
+
+popf
+pop r15
+pop r14
+pop r13
+pop r12
+pop r11
+pop r10
+pop r9
+pop r8
+pop rdi
+pop rsi
+pop rdx
+pop rcx
+pop rbx
+pop rbp
 
 ret

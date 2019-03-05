@@ -125,15 +125,16 @@ mov rdi, myArray
 mov rsi, r15
 call display
 
-mov rdi, r15
+mov rdi, myArray
+mov rsi, r15
 call computeMean
-mov r12, [rsp]
 
-mov qword rax, 0
+movsd xmm15, xmm0
+
+mov qword rax, 1
 mov rdi, mean
 mov rsi, r15
 mov rdx, r13
-mov rcx, r12
 call printf
 
 mov qword rax, 0
@@ -151,7 +152,7 @@ mov rdi, stringformat
 mov rsi, exit
 call printf
 
-mov rax, r15
+movsd xmm0, xmm15
 
 popf
 pop r15
@@ -168,6 +169,5 @@ pop rdx
 pop rcx
 pop rbx
 pop rbp
-
 
 ret
