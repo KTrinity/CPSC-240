@@ -10,9 +10,9 @@
 #Information about this module:
 #This module purpose: Bash module for Arrays
 #File name of this module: arrayRun.sh
-#Compile this module: N/A
+#Compile this module: chmod +x arrayRun.sh
 #Link this module with other objects: N/A
-#Execute: ./EoT.out
+#Execute: ./arrayRun.sh
 #/bin/bash
 
 rm *.o
