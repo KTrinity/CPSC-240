@@ -20,6 +20,6 @@ Execute: ./array.out
 
 void display(long arr[], long size) {
   for(int i = 0; i < size; i = i + 1) {
-    printf("%ld\n", arr[i]);
+    printf("%ld\n", arr[i]); //Loop prints out array received from control file
   }
 }
