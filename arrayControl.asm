@@ -143,6 +143,7 @@ call display                                                        ;Call C func
 
 mov rdi, myArray                                                    ;Place myArray into rdi to be used in computeMean
 mov rsi, r15                                                        ;Place the counter into rsi to be used in computeMean
+mov r14, r15                                                        ;Put the counter in a safer register since r15 will be manipulated
 call computeMean                                                    ;Call ASM function to compute the mean
 
 movsd xmm15, xmm0                                                   ;Copies double received from computeMean to a safer register
@@ -160,7 +161,7 @@ call printf                                                         ;Call a libr
 
 mov qword rax, 0                                                    ;No data from SSE will be printed
 mov rdi, myArray                                                    ;Place myArray into rdi
-mov rsi, r15                                                        ;Place the counter into rsi
+mov rsi, r14                                                        ;Place the counter into rsi
 call square                                                         ;Call C++ function to square the inputs and print them
 
 mov qword rax, 0                                                    ;No data from SSE will be printed
