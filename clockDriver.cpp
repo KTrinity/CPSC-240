@@ -18,13 +18,13 @@ Execute: ./clock.out
 
 #include <iostream>
 
-extern "C" float clock();
+extern "C" double clockMod();
 
 int main(int argc, const char* argv[]) {
-  std::cout << "Welcome to Clock created by Lewis Lam.\n"
-  std::cout << "The main program will now call the clock module.\n"
+  std::cout << "Welcome to Clock created by Lewis Lam.\n";
+  std::cout << "The main program will now call the clock module.\n";
 
-  double result = clock();
+  double result = clockMod();
 
   std::cout << "The clock main program received this number " << result << std::endl;
   std::cout << "Have a nice day. Bye.\n";
