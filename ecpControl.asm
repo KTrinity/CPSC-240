@@ -1,19 +1,8 @@
 ;****************************************************************************************************************************
 ;Author Name: Lewis Lam
-;Program Name: Electric Circuit Processing
-;Names of files in this program: ecpDriver.cpp, ecpControl.asm, ecpRun.sh
-;Course Number: CPSC 240
-;Assignment Number: 5
-;Scheduled delivery date: April 23, 2019
-;Status: Incomplete
-;Date of last modification: April 29, 2019
+;Program Name: Final Exam Part 2
+;Scheduled delivery date: May 16, 2019
 
-;Information about this module:
-;This module's purpose: Control module for ECP program
-;File name of this module: ecpControl.asm
-;Compile this module: nasm -f elf64 -l array.lis -o ecpControl.o ecpControl.asm
-;Link this module with other objects: g++ -m64 -std=c++98 -o ecp.out ecpControl.o ecpDriver.o -fno-pie -no-pie
-;Execute: ./ecp.out
 
 ;****************************************************************************************************************************
 ;========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1=========2=========3**
@@ -30,7 +19,9 @@ segment .data                                                       ;Place initi
 
 ;===== Declare some messages ==============================================================================================================================================
 
-welcome db "This program will compute the resistance of a circuit configured with parallel sub-circuits.", 10, 0
+currentTime db "The clock time is now %ld", 10, 0
+
+welcome db "This program will compute the resistance, current, and work of the circuit.", 10, 0
 
 instruction db "Enter the resistance of a circuit: ", 0
 
@@ -38,7 +29,13 @@ totalSubs db "Thank you. The number of sub-circuits is %d.", 10, 0
 
 totalResistance db "The total resistance in this system is R = %lf Ω", 10, 0
 
-exit db "Thank you for using ECP. The total resistance will now be returned to the driver program.", 10, 0
+voltagePrompt db "Please enter the voltage of the battery in volts:", 0
+
+currentFlow db "The rate of curent flow is I = %lf amps", 10, 0
+
+work db "The work performed by this circuit during the last 60 seconds is W = %lf joules", 10, 0
+
+exit db "Thank you for using my program. The work number will be returned to the driver program.", 10, 0
 
 newline db "", 10, 0
 
@@ -51,6 +48,8 @@ eight_byte_format db "%lf", 0                                       ;general 8-b
 zero dq 0.0
 
 one dq 1.0
+
+sixty dq 60.0
 
 segment .bss                                                        ;Place uninitialized data here
 
@@ -82,6 +81,20 @@ startapplication: ;===== Begin the application here: demonstrate clock module ==
 ;==========================================================================================================================================================================
 
 ;=========== Show the initial message =====================================================================================================================================
+
+mov rax, 0                                                          ;Sets rax to 0
+mov rdx, 0                                                          ;Sets rdx to 0
+cpuid                                                               ;Pauses all processes
+rdtsc                                                               ;Copies the counter into edx:eax
+shl rdx, 32                                                         ;edx:eax holds the # of tics
+or rax, rdx                                                         ;rax holds the # of tics since computer powered on
+mov r15, rax                                                        ;Copy # of tics to safer register
+
+mov qword rax, 0                                                    ;No data from SSE will be printed
+mov rdi, currentTime
+mov rsi, r15                                                        ;Copies the start time to rdx
+call printf                                                         ;Call a library function to make the output
+
 
 mov qword rax, 0                                                    ;No data from SSE will be printed
 mov rdi, stringformat                                               ;"%s"
@@ -121,7 +134,7 @@ movsd xmm14, [one]
 mov qword rax, 0                                                    ;No data from SSE will be printed
 mov rdi, stringformat                                               ;"%s"
 mov rsi, newline                                                    ;""
-call printf   
+call printf
 
 jmp startloop
 
@@ -142,6 +155,46 @@ movsd xmm0, xmm14
 
 mov qword rax, 1                                                    ;One value from xmm0 will be printed
 mov rdi, totalResistance                                            ;"The total resistance in this system is R = %lf Ω"
+call printf                                                         ;Call a library function to make the output
+
+mov qword rax, 0
+mov rdi, stringformat
+mov rsi, voltagePrompt
+call printf
+
+mov qword rax, 0
+mov rdi, eight_byte_format
+mov rsi, rsp
+call scanf
+
+movsd xmm15, [rsp]
+divsd xmm15, xmm14
+movsd xmm0, xmm15
+
+mov qword rax, 1
+mov rdi, currentFlow
+call printf
+
+mulsd xmm15, xmm15
+mulsd xmm15, xmm14
+mulsd xmm15, [sixty]
+movsd xmm0, xmm15
+
+mov qword rax, 1
+mov rdi, work
+call printf
+
+mov rax, 0                                                          ;Sets rax to 0
+mov rdx, 0                                                          ;Sets rdx to 0
+cpuid                                                               ;Pauses all processes
+rdtsc                                                               ;Copies the counter into edx:eax
+shl rdx, 32                                                         ;edx:eax holds the # of tics
+or rax, rdx                                                         ;rax holds the # of tics since computer powered on
+mov r15, rax                                                        ;Copy # of tics to safer register
+
+mov qword rax, 0                                                    ;No data from SSE will be printed
+mov rdi, currentTime
+mov rsi, r15                                                        ;Copies the start time to rdx
 call printf                                                         ;Call a library function to make the output
 
 mov qword rax, 0                                                    ;No data from SSE will be printed
